@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ensd_content_bg"
+        android:orientation="vertical">
+
+        <include layout="@layout/ensd_toolbar_title" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#FEFEFE">
+
+
+            <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@+id/station_smartTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                app:stl_defaultTabTextColor="@drawable/station_menu_color"
+                app:stl_defaultTabTextSize="16sp"
+                app:stl_distributeEvenly="true"
+                app:stl_dividerColor="@android:color/transparent"
+                app:stl_indicatorColor="@color/text_menu_pink"
+                app:stl_indicatorCornerRadius="0.5dp"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorThickness="3dp"
+                app:stl_indicatorWidth="30dp"
+                app:stl_underlineThickness="0.5dp" />
+        </RelativeLayout>
+
+        <ejiayou.station.module.TViewPager
+            android:id="@+id/station_tViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</layout>

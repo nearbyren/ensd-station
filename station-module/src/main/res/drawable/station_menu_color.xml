@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <!--设置tab标签的文本-->
+    <item android:color="@color/text_menu_pink" android:state_selected="true" />
+    <item android:color="@color/text_menu_gray" android:state_selected="false" />
+</selector>
