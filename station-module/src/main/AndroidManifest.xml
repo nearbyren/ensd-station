@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name="ejiayou.station.module.TestActivity"
+            android:name="ejiayou.station.module.EnsdStationDetailAct"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

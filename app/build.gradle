@@ -37,8 +37,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -48,7 +48,6 @@ dependencies {
     androidTestImplementation Testing.espresso
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs/aars')
-    api 'com.github.nearbyren:ensd-common:1.1.0'
     implementation project(path: ':station-module')
 
 }

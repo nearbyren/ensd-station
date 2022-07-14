@@ -43,8 +43,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -55,7 +55,7 @@ dependencies {
     //引用包问题
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
-    api 'com.github.nearbyren:ensd-common:1.1.0'
+    api 'com.github.nearbyren:ensd-common:1.1.2'
     api 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     api 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
 //    api files('libs/aar/common-module-release.aar')

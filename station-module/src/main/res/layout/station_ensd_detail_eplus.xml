@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/station_ensd_detail_eplus_icon1">
+
+            <FrameLayout
+                android:id="@+id/station_fl_plus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@drawable/station_ensd_detail_eplus_icon3">
+
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/station_e_plus_icon"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/station_ensd_detail_eplus_icon4" />
+
+
+            <TextView
+                android:id="@+id/station_tv_vip_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@id/station_e_plus_icon"
+                android:drawableRight="@drawable/station_ensd_detail_tip_icon"
+                android:drawablePadding="4dp"
+                android:text="会员规则"
+                android:textColor="#ff000000"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/station_line"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/station_ensd_detail_eplus_icon" />
+
+            <View
+                android:id="@+id/station_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent" />
+
+            <TextView
+                android:id="@+id/station_e_plus_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/station_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"
+                android:drawablePadding="4dp"
+                android:text="开通会员，立得 30 元会员券包"
+                android:textColor="#ff000000"
+                android:textSize="12sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/station_e_plus_text"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/station_e_plus_text"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@id/station_iv_check"
+                    android:text="22.99"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/station_iv_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/station_e_plus_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/station_ensd_detail_tip_icon" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </merge>
+
+
+</layout>

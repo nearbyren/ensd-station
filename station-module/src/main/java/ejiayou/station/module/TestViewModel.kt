@@ -1,6 +1,8 @@
 package ejiayou.station.module
 
+import androidx.lifecycle.MutableLiveData
 import ejiayou.common.module.base.BaseAppViewModel
+import ejiayou.station.module.model.CouponDto
 
 /**
  * @author: lr
@@ -9,7 +11,7 @@ import ejiayou.common.module.base.BaseAppViewModel
  */
 class TestViewModel : BaseAppViewModel() {
 
-
+    val couponDto = MutableLiveData<ArrayList<CouponDto>>()
 
 
 }
