@@ -16,7 +16,6 @@ import ejiayou.common.module.exts.hideSoftInput
 import ejiayou.common.module.exts.observeNonNull
 import ejiayou.common.module.utils.ToastUtils
 import ejiayou.station.module.adapter.OpenEplusOnClickListener
-import ejiayou.station.module.adapter.StationAdAdapter
 import ejiayou.station.module.adapter.StationCalculeDiscountAdapter
 import ejiayou.station.module.adapter.StationCouponAdapter
 import ejiayou.station.module.databinding.StationEnsdDetailBinding
@@ -64,14 +63,51 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
     }
 
     override fun initialize(savedInstanceState: Bundle?) {
-        var random: Int = 0
+
         binding.stationRlLeft.setOnClickListener {
             ToastUtils.showToast(this, "stationRlLeft")
         }
         binding.stationRlRight.setOnClickListener {
             ToastUtils.showToast(this, "stationRlRight")
-            random = Random.nextInt(2)
         }
+        //油站信息
+        stationInfo()
+
+        //广告
+        advertiseInfo()
+
+        //油枪 油号
+        oilOptionInfo()
+
+        //标价 100 200 300
+        markedPrice()
+
+        //计算最优折扣方式
+        bestDiscount()
+
+        //始终隐藏键盘
+        enterInputOnFocus()
+        //eplus
+        eplusInfo()
+
+        bottomInfo()
+
+
+    }
+
+    //计算最优折扣优惠券
+    private var calulates = ArrayList<CalculateDiscountDto>()
+    private val stationCalculeDiscountAdapter by lazy { StationCalculeDiscountAdapter() }
+
+    // 100 200 300
+    private var couponDtos = ArrayList<CouponDto>()
+    private val stationCouponAdapter by lazy { StationCouponAdapter() }
+
+    //确认提示购买eplus
+    private var comfirmDialog: StationEnsdDetailEplusComfirmDialog? = null
+
+    //油站名称 地址 距离 价格 国家价
+    private fun stationInfo() {
         //油站名称
         binding.stationTvDetailName.text = "加德士北环大厦加油站"
         //油站地址
@@ -82,9 +118,14 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
         binding.stationTvDetailPrice.text = "￥8.53"
         //油站价格  国家价格
         binding.stationTvDetailDoublePrice.text = "油站价：¥8.66 国家价：¥8.66"
-        //标记常去
-//        binding.stationIvDetailLike
-        //广告置
+        //收藏
+        binding.stationIvDetailLike.setOnClickListener {
+            ToastUtils.showToast(EnsdStationDetailAct@ this, "收藏..")
+        }
+    }
+
+    private fun advertiseInfo() {
+        //滚动文案广告提示
         var autoRecycleViewPollList = ArrayList<String>()
         autoRecycleViewPollList.add("1/1 站内支持开票，如有疑问请向加油员询问~")
         autoRecycleViewPollList.add("1/2 站内支持开票，如有疑问请向加油员询问~")
@@ -94,96 +135,95 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
         binding.stationAutoPollRecycler.adapter = AutoRecycleViewPoll(this, autoRecycleViewPollList)
         binding.stationAutoPollRecycler.start(1)
 //        binding.stationRecyclerAd.stop(1)
-        Logger.d("TT", "random $random")
         //广告轮播提示
-        if (random == 0) {
+        if (Random.nextInt(2) == 1) {
             binding.stationLlHint.visibility = View.GONE
         } else {
             binding.stationLlHint.visibility = View.VISIBLE
         }
-        //点击展开块状
+        //点击展开详情广告块状
         binding.stationLlHintClick.setOnClickListener {
             ToastUtils.showToast(this, "stationLlHintClick")
             val adDialog = StationEnsdDetailAdDialog()
+            var hight: Int = 343
+            adDialog.setHeight(hight.dpToPx)
             adDialog.setGravity(Gravity.BOTTOM)
             adDialog.show(activity = EnsdStationDetailAct@ this, "ad_dialog")
         }
-        //滚动文案广告提示
-//        binding.stationAutoPollRecycler
+
+    }
+
+    private fun oilOptionInfo() {
         //油枪
 //        binding.stationOilNumber.stationTvOilGun
+        //油号
+//        binding.stationOilNumber.stationTvOilNumber
         //油号
 //        binding.stationOilNumber.stationTvOilNumber
         //输入金额
         binding.stationOilNumber.stationEtAmount.setOnFocusChangeListener { v, hasFocus ->
             Logger.d("TT", "hasFocus $hasFocus")
-
             detectEtAmount(hasFocus)
         }
-        //计算最优折扣方式
-        bestDiscount()
-
-
-        //始终隐藏键盘
-        enterInputOnFocus()
-        binding.stationOilNumber.stationRlNumber.setOnClickListener {
-            oilInitFragment()
-        }
+        //油枪点击
         binding.stationOilNumber.stationRlOil.setOnClickListener {
             oilInitFragment()
         }
-
-
-        //标价 100 200 300
-        markedPrice()
-
-
-
-        //eplus
-        binding.stationEplus.stationTvVipRule.setOnClickListener {
-            ToastUtils.showToast(this, "stationEplus")
+        //油号点击
+        binding.stationOilNumber.stationRlNumber.setOnClickListener {
+            oilInitFragment()
         }
 
-        //支付金额
-//        binding.stationConfirm.stationTvConfirmPrice
-        //优惠
-//        binding.stationConfirm.stationTvConfirmDiscount
-        //确认订单
-        binding.stationConfirm.stationBtnGo.setOnClickListener {
-            goComfirmEplus()
+    }
+
+    fun detectEtAmount(hasFocus: Boolean) {
+        binding.stationOilNumber.stationEtAmount.hideSoftInput(EnsdStationDetailAct@ this)
+        if (hasFocus) {
+            //隐藏键盘
+            binding.stationKeyBoard.visibility = View.VISIBLE
+            //隐藏最优折扣优惠
+            binding.stationOilNumber.stationCalculate.stationLlCalculate.visibility = View.GONE
+
+        } else {
+            //隐藏键盘
+            binding.stationKeyBoard.visibility = View.GONE
+            //隐藏最优折扣优惠
+            binding.stationOilNumber.stationCalculate.stationLlCalculate.visibility = View.VISIBLE
 
         }
     }
 
-    var calulates = ArrayList<CalculateDiscountDto>()
 
-    private val stationCalculeDiscountAdapter by lazy { StationCalculeDiscountAdapter() }
     fun bestDiscount() {
         //合计优惠
-        binding.stationOilNumber.stationCalculate.stationTvTotalDiscount.text = "¥15.05"
+        binding.stationOilNumber.stationCalculate.stationTvTotalDiscount.text = "¥15.105"
         calulates.add(CalculateDiscountDto(
+            14,
             icon = R.drawable.station_ensd_detail_praise,
-            text = "",
+            text = "最优折扣方案",
             discount = "",
             disType = ""
         ))
         calulates.add(CalculateDiscountDto(
+            12,
             icon = R.drawable.station_ensd_detail_drop,
             text = "直降优惠",
             discount = "¥9.05",
             disType = "1"
         ))
         calulates.add(CalculateDiscountDto(
-            icon = R.drawable.station_ensd_detail_praise,
-            icon2 = R.drawable.station_ensd_detail_coupon,
+            12,
+            icon = R.drawable.station_ensd_detail_coupon,
+            icon2 = R.drawable.station_ensd_detail_plus,
             text = "优惠券",
             discount = "¥5",
             disType = "1"
         ))
         calulates.add(CalculateDiscountDto(
+            12,
             icon = R.drawable.station_ensd_detail_sc,
             text = "服务费",
-            discount = "-¥3.05",
+            discount = "¥3.05",
             disType = "1"
         ))
         stationCalculeDiscountAdapter.setItems(calulates)
@@ -202,51 +242,39 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
 
     }
 
-    fun markedPrice(){
-        var couponDto1 = CouponDto()
-        var couponDto2 = CouponDto()
-        var couponDto3 = CouponDto()
+    fun markedPrice() {
 
-        couponDto1.discount = "优惠 ¥3.11"
-        couponDto2.discount = "优惠 ¥3.12"
-        couponDto3.discount = "优惠 ¥3.13"
+        couponDtos.add(CouponDto(discount = "优惠 ¥3.11",markPrice = "100",isCheck = false,isCoupon = false ))
+        couponDtos.add(CouponDto(discount = "优惠 ¥3.12",markPrice = "100",isCheck = false,isCoupon = true))
+        couponDtos.add(CouponDto(discount = "优惠 ¥3.13",markPrice = "100",isCheck = false,isCoupon = false))
 
 
-        couponDto1.markPrice = "100"
-        couponDto2.markPrice = "200"
-        couponDto3.markPrice = "300"
+        stationCouponAdapter.setItems(couponDtos)
 
-        couponDto1.isCheck = false
-        couponDto2.isCheck = true
-        couponDto3.isCheck = false
+        viewModel.couponDto.observeNonNull(this) {
+            stationCouponAdapter.refreshItems(it)
+        }
 
-
-        couponDto1.isCoupon = false
-        couponDto2.isCoupon = false
-        couponDto3.isCoupon = false
-
-        array.add(couponDto1)
-        array.add(couponDto2)
-        array.add(couponDto3)
-        stationCouponAdapter.setItems(array)
-        refresh()
         //标记 100 200 300
         binding.stationOilNumber.stationRecyclerCoupon.adapter = stationCouponAdapter
         binding.stationOilNumber.stationRecyclerCoupon.layoutManager = GridLayoutManager(this, 3)
         val spaceItemDecoration = SpaceItemDecoration(0, 10, 35)
         binding.stationOilNumber.stationRecyclerCoupon.addItemDecoration(spaceItemDecoration)
         binding.stationOilNumber.stationRecyclerCoupon.setHasFixedSize(true)
+
         stationCouponAdapter.setOnItemClickListener(listener = object : OnItemClickListener<CouponDto> {
             override fun onItemClick(holder: Any, item: CouponDto, position: Int) {
                 var check = item.isCheck
-                for (c in array) {
+                for (c in couponDtos) {
                     c.isCheck = false
                 }
-                array[position].isCheck = !check
-                viewModel.couponDto.value = array
+                couponDtos[position].isCheck = !check
+                viewModel.couponDto.value = couponDtos
             }
         })
+
     }
+
     fun oilInitFragment() {
         val adDialog = StationEnsdDetailOilDialog()
         adDialog.setGravity(Gravity.BOTTOM)
@@ -272,25 +300,38 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
 
     }
 
-    fun detectEtAmount(hasFocus: Boolean) {
-        binding.stationOilNumber.stationEtAmount.hideSoftInput(EnsdStationDetailAct@ this)
-        if (hasFocus) {
-            binding.stationKeyBoard.visibility = View.VISIBLE
-        } else {
-            binding.stationKeyBoard.visibility = View.GONE
+    private fun eplusInfo() {
+        //eplus
+        binding.stationEplus.stationTvVipRule.setOnClickListener {
+            ToastUtils.showToast(this, "会员规则")
+        }
+
+        binding.stationEplus.stationIvEPlusCheck.setOnClickListener {
+            confirmEPlus()
+        }
+    }
+
+    private fun bottomInfo() {
+        //支付金额
+//        binding.stationConfirm.stationTvConfirmPrice
+        //优惠
+//        binding.stationConfirm.stationTvConfirmDiscount
+        //确认订单
+        binding.stationConfirm.stationBtnGo.setOnClickListener {
+
         }
     }
 
     /**
      * 确认购买eplus操作
      */
-    fun goComfirmEplus() {
+    private fun confirmEPlus() {
         comfirmDialog =
             StationEnsdDetailEplusComfirmDialog(object : OpenEplusOnClickListener {
                 override fun oepn() {
                     comfirmDialog?.let {
                         it.dismiss()
-                        goBuyEplus()
+                        buyEPlus()
                     }
                 }
             })
@@ -303,22 +344,11 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
     /**
      * 购买eplus操作
      */
-    fun goBuyEplus() {
+    private fun buyEPlus() {
         val eplusBuyDialog = StationEnsdDetailEplusBuyDialog()
         eplusBuyDialog.setGravity(Gravity.BOTTOM)
         eplusBuyDialog.show(activity = EnsdStationDetailAct@ this, "buy_eplus_dialog")
     }
-
-    var array = ArrayList<CouponDto>()
-
-    fun refresh() {
-        viewModel.couponDto.observeNonNull(this) {
-            stationCouponAdapter.refreshItems(it)
-        }
-    }
-
-    var comfirmDialog: StationEnsdDetailEplusComfirmDialog? = null
-    private val stationCouponAdapter by lazy { StationCouponAdapter() }
 
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

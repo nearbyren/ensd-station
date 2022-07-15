@@ -3,6 +3,7 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/station_ll_calculate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -12,7 +13,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/station_recycler_calculate_coupon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,9 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/station_tv_total_discount_"
-                android:text="-15.05"
                 android:textColor="#FF681C"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="-15.05" />
         </RelativeLayout>
 
 

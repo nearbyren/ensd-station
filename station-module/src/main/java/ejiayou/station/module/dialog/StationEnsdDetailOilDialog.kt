@@ -29,5 +29,9 @@ class StationEnsdDetailOilDialog : BaseBindDialogFragment<StationEnsdDetailOilDi
         binding.stationPager.adapter = adapter
         binding.stationPager.setScanScroll(true)
         binding.stationSmartTabLayout.setViewPager(binding.stationPager)
+
+        binding.stationIvClose.setOnClickListener {
+            dismiss()
+        }
     }
 }

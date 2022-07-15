@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/station_ensd_station_detail_item_coupon"
+            android:background="@drawable/station_ensd_station_detail_item_coupon1"
             android:gravity="center"
             android:text="劵"
             android:textColor="@color/coral"
@@ -50,11 +50,11 @@
 
         <ImageView
             android:id="@+id/station_iv_is_coupon"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:paddingTop="3dp"
-            android:paddingRight="3dp"
+            android:layout_marginTop="1.1dp"
+            android:layout_marginRight="1.1dp"
             tools:src="@drawable/station_ensd_detail_coupon_is_check" />
 
     </RelativeLayout>

@@ -16,7 +16,7 @@ import ejiayou.uikit.module.recyclerview.BaseBindRecyclerAdapter
 /**
  * @author:
  * @created on: 2022/7/13 19:00
- * @description:
+ * @description:EPlus 开通会员
  */
 class StationEplusAdapter : BaseBindRecyclerAdapter<StationEnsdDetailEplusBuyItemBinding, EPlusItemDto>() {
 

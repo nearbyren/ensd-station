@@ -9,7 +9,7 @@ import ejiayou.uikit.module.recyclerview.BaseBindRecyclerAdapter
 /**
  * @author:
  * @created on: 2022/7/13 19:00
- * @description:
+ * @description:油枪 油号
  */
 class StationOilAdapter : BaseBindRecyclerAdapter<StationEnsdDetailOilDialogItemBinding, OilItemDto>() {
 

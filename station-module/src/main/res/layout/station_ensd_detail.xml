@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff5f7fa"
@@ -170,8 +170,8 @@
 
                         <ImageView
                             android:id="@+id/station_iv_detail_like"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_toLeftOf="@id/station_tv_detail_mark"
                             android:src="@drawable/station_ensd_detail_like" />
@@ -197,7 +197,8 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/station_recycler_ad"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never" />
 
                     </RelativeLayout>
 
@@ -217,8 +218,8 @@
 
                             <ImageView
                                 android:id="@+id/station_iv_hint"
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:src="@drawable/station_edns_detail_hint" />
 
@@ -233,8 +234,8 @@
 
                         <ImageView
                             android:id="@+id/station_iv_down"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:src="@drawable/station_ensd_detail_down" />
 
