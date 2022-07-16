@@ -54,6 +54,6 @@ dependencies {
     androidTestImplementation Testing.espresso
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs/aars')
-    implementation project(path: ':station-module')
+    api project(path: ':station-module')
 
 }

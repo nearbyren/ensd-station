@@ -61,7 +61,7 @@ dependencies {
     testImplementation Testing.jUnit
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
-    api 'com.github.nearbyren:ensd-common:1.1.7'
+    api 'com.github.nearbyren:ensd-common:1.1.9'
     api 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     api 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
 //    api files('libs/aar/common-module-release.aar')
@@ -69,6 +69,7 @@ dependencies {
     //注意这里只依赖share_export（share_module由壳工程引入）
     implementation ThirdLib.arouter.arouterApi
     kapt ThirdLib.arouter.arouterCompiler
+
 
 }
 
