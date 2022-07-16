@@ -5,8 +5,8 @@ package ejiayou.station.export.router
  * @created on: 2022/2/27 7:21 下午
  * @description:
  */
-object HomeRouterTable {
+object StationRouterTable {
 
-    const val PATH_HOME_UI_INDEX = "/station/ui/index"
+    const val PATH_HOME_UI_INDEX = "/station/ui/detail"
 
 }

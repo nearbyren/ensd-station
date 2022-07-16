@@ -5,7 +5,7 @@ import ejiayou.common.module.api.response.InfoResponse
 import ejiayou.common.module.api.response.ResponseHolder
 import ejiayou.common.module.dto.BannerBean
 import ejiayou.common.module.dto.MyBannerBean
-import ejiayou.common.module.http.FlyHttp
+import ejiayou.common.module.http.CorHttp
 
 /**
  * @author: lr
@@ -20,7 +20,7 @@ class MessageRepoImpl : MessageRepo {
 
 
     ): ResponseHolder<MyBannerBean<BannerBean>> {
-        return FlyHttp.getInstance().getClient()
+        return CorHttp.getInstance().getClient()
                 .postJson(
                     url = URL_ARTICLE_LIST,
                     params = mapOf<String, String>(
