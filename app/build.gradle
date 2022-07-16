@@ -1,7 +1,5 @@
-import ejiayou.composing.builds.AndroidX
-import ejiayou.composing.builds.Google
-import ejiayou.composing.builds.ThirdLib
 import ejiayou.composing.builds.Testing
+import ejiayou.composing.builds.ThirdLib
 
 plugins {
     id 'com.android.application'
@@ -9,7 +7,6 @@ plugins {
     id 'kotlin-android-extensions'
 //    id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'bga-appinit-plugin'
 }
 
 android {
@@ -37,7 +34,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    packagingOptions {exclude 'META-INF/rxjava.properties'}
+    packagingOptions { exclude 'META-INF/rxjava.properties' }
 
     kotlinOptions {
         jvmTarget = '1.8'
@@ -52,8 +49,6 @@ dependencies {
     testImplementation Testing.jUnit
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs/aars')
     api project(path: ':station-module')
 
 }

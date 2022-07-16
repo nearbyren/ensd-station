@@ -1,13 +1,11 @@
-import ejiayou.composing.builds.AndroidX
-import ejiayou.composing.builds.Google
-import ejiayou.composing.builds.ThirdLib
 import ejiayou.composing.builds.Testing
-
+import ejiayou.composing.builds.ThirdLib
 
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'maven-publish'
+    id 'kotlin-kapt'
     id 'ejiayou.composing.builds'
 }
 
@@ -22,6 +20,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -44,9 +48,12 @@ dependencies {
     testImplementation Testing.jUnit
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
+    //每个module必须引用 ARouter
+    api ThirdLib.Arouter.arouterApi
+    kapt ThirdLib.Arouter.arouterCompiler
+    api 'com.github.nearbyren:ensd-common:1.2.0'
 
 }
-
 
 
 afterEvaluate {

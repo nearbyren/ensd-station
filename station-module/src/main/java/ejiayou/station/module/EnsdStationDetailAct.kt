@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.orhanobut.logger.Logger
 import ejiayou.common.module.base.BaseAppBVMActivity
 import ejiayou.common.module.exts.dpToPx
 import ejiayou.common.module.exts.hideSoftInput
 import ejiayou.common.module.exts.observeNonNull
 import ejiayou.common.module.utils.ToastUtils
+import ejiayou.station.export.router.StationRouterTable
 import ejiayou.station.module.adapter.OpenEplusOnClickListener
 import ejiayou.station.module.adapter.StationCalculeDiscountAdapter
 import ejiayou.station.module.adapter.StationCouponAdapter
@@ -31,18 +34,15 @@ import ejiayou.station.module.view.StationKeyboardView
 import ejiayou.uikit.module.recyclerview.BaseRecyclerAdapter
 import ejiayou.uikit.module.recyclerview.BaseRecyclerAdapter.OnItemClickListener
 import ejiayou.uikit.module.recyclerview.SpaceItemDecoration
-import kotlinx.android.synthetic.main.station_ensd_detail.*
-import kotlinx.android.synthetic.main.station_ensd_detail_confirm.view.*
-import kotlinx.android.synthetic.main.station_ensd_detail_oil_number.view.*
 import java.lang.reflect.Method
-import java.util.ArrayList
 import kotlin.random.Random
 
 /**
  * @author:
  * @created on: 2022/7/8 13:51
- * @description:
+ * @description: 油站详情
  */
+
 class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestViewModel>() {
 
 
@@ -121,6 +121,9 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
         //收藏
         binding.stationIvDetailLike.setOnClickListener {
             ToastUtils.showToast(EnsdStationDetailAct@ this, "收藏..")
+            ARouter.getInstance().build(StationRouterTable.PATH_STATION_UI_DETAIL)
+                .withString("key1", "哈哈1")
+                .withString("key2", "哈哈2").navigation()
         }
     }
 
@@ -197,44 +200,57 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
     fun bestDiscount() {
         //合计优惠
         binding.stationOilNumber.stationCalculate.stationTvTotalDiscount.text = "¥15.105"
-        calulates.add(CalculateDiscountDto(
-            14,
-            icon = R.drawable.station_ensd_detail_praise,
-            text = "最优折扣方案",
-            discount = "",
-            disType = ""
-        ))
-        calulates.add(CalculateDiscountDto(
-            12,
-            icon = R.drawable.station_ensd_detail_drop,
-            text = "直降优惠",
-            discount = "¥9.05",
-            disType = "1"
-        ))
-        calulates.add(CalculateDiscountDto(
-            12,
-            icon = R.drawable.station_ensd_detail_coupon,
-            icon2 = R.drawable.station_ensd_detail_plus,
-            text = "优惠券",
-            discount = "¥5",
-            disType = "1"
-        ))
-        calulates.add(CalculateDiscountDto(
-            12,
-            icon = R.drawable.station_ensd_detail_sc,
-            text = "服务费",
-            discount = "¥3.05",
-            disType = "1"
-        ))
+        calulates.add(
+            CalculateDiscountDto(
+                14,
+                icon = R.drawable.station_ensd_detail_praise,
+                text = "最优折扣方案",
+                discount = "",
+                disType = ""
+            )
+        )
+        calulates.add(
+            CalculateDiscountDto(
+                12,
+                icon = R.drawable.station_ensd_detail_drop,
+                text = "直降优惠",
+                discount = "¥9.05",
+                disType = "1"
+            )
+        )
+        calulates.add(
+            CalculateDiscountDto(
+                12,
+                icon = R.drawable.station_ensd_detail_coupon,
+                icon2 = R.drawable.station_ensd_detail_plus,
+                text = "优惠券",
+                discount = "¥5",
+                disType = "1"
+            )
+        )
+        calulates.add(
+            CalculateDiscountDto(
+                12,
+                icon = R.drawable.station_ensd_detail_sc,
+                text = "服务费",
+                discount = "¥3.05",
+                disType = "1"
+            )
+        )
         stationCalculeDiscountAdapter.setItems(calulates)
         binding.stationOilNumber.stationCalculate.stationRecyclerCalculateCoupon.adapter =
             stationCalculeDiscountAdapter
         binding.stationOilNumber.stationCalculate.stationRecyclerCalculateCoupon.layoutManager =
             LinearLayoutManager(EnsdStationDetailAct@ this)
         val spaceItemDecoration = SpaceItemDecoration(0, 10, 35)
-        binding.stationOilNumber.stationCalculate.stationRecyclerCalculateCoupon.addItemDecoration(spaceItemDecoration)
-        binding.stationOilNumber.stationCalculate.stationRecyclerCalculateCoupon.setHasFixedSize(true)
-        stationCalculeDiscountAdapter.setOnItemClickListener(listener = object : BaseRecyclerAdapter.OnItemClickListener<CalculateDiscountDto> {
+        binding.stationOilNumber.stationCalculate.stationRecyclerCalculateCoupon.addItemDecoration(
+            spaceItemDecoration
+        )
+        binding.stationOilNumber.stationCalculate.stationRecyclerCalculateCoupon.setHasFixedSize(
+            true
+        )
+        stationCalculeDiscountAdapter.setOnItemClickListener(listener = object :
+            BaseRecyclerAdapter.OnItemClickListener<CalculateDiscountDto> {
             override fun onItemClick(holder: Any, item: CalculateDiscountDto, position: Int) {
 
             }
@@ -244,9 +260,30 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
 
     fun markedPrice() {
 
-        couponDtos.add(CouponDto(discount = "优惠 ¥3.11",markPrice = "100",isCheck = false,isCoupon = false ))
-        couponDtos.add(CouponDto(discount = "优惠 ¥3.12",markPrice = "100",isCheck = false,isCoupon = true))
-        couponDtos.add(CouponDto(discount = "优惠 ¥3.13",markPrice = "100",isCheck = false,isCoupon = false))
+        couponDtos.add(
+            CouponDto(
+                discount = "优惠 ¥3.11",
+                markPrice = "100",
+                isCheck = false,
+                isCoupon = false
+            )
+        )
+        couponDtos.add(
+            CouponDto(
+                discount = "优惠 ¥3.12",
+                markPrice = "100",
+                isCheck = false,
+                isCoupon = true
+            )
+        )
+        couponDtos.add(
+            CouponDto(
+                discount = "优惠 ¥3.13",
+                markPrice = "100",
+                isCheck = false,
+                isCoupon = false
+            )
+        )
 
 
         stationCouponAdapter.setItems(couponDtos)
@@ -262,7 +299,8 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
         binding.stationOilNumber.stationRecyclerCoupon.addItemDecoration(spaceItemDecoration)
         binding.stationOilNumber.stationRecyclerCoupon.setHasFixedSize(true)
 
-        stationCouponAdapter.setOnItemClickListener(listener = object : OnItemClickListener<CouponDto> {
+        stationCouponAdapter.setOnItemClickListener(listener = object :
+            OnItemClickListener<CouponDto> {
             override fun onItemClick(holder: Any, item: CouponDto, position: Int) {
                 var check = item.isCheck
                 for (c in couponDtos) {

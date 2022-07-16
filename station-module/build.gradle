@@ -11,13 +11,8 @@ plugins {
     id 'kotlin-android-extensions'
 //    id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'bga-appinit-plugin'
 }
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 android {
     compileSdk 30
 
@@ -29,6 +24,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -56,19 +56,19 @@ android {
         dataBinding true
     }
 }
-
 dependencies {
     testImplementation Testing.jUnit
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
-    api 'com.github.nearbyren:ensd-common:1.1.9'
+    //每个module必须引用 ARouter
+    api ThirdLib.Arouter.arouterApi
+    kapt ThirdLib.Arouter.arouterCompiler
+    api 'com.github.nearbyren:ensd-common:1.2.0'
     api 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     api 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
 //    api files('libs/aar/common-module-release.aar')
     implementation project(path: ':station-export')
     //注意这里只依赖share_export（share_module由壳工程引入）
-    implementation ThirdLib.arouter.arouterApi
-    kapt ThirdLib.arouter.arouterCompiler
 
 
 }
