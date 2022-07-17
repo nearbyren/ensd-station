@@ -1,0 +1,39 @@
+// 1. include 组件 module ，注意，使用绝对路径
+include ":user"
+project(":user").projectDir = file("/Users/lr/AndroidStudioProjects/1components/ensd2/ensd-station/station-module")
+
+// 2. aar依赖 与 module依赖 动态切换
+gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+
+    @Override
+    void beforeEvaluate(Project projectObj) {
+        try {
+            // 增加扩展属性
+//            if (!projectObj.rootProject.extensions.hasProperty("kotlin_version")) {
+//                projectObj.rootProject.extensions.add("kotlin_version", "1.4.32")
+//            }
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+        // 应用组件工程的全局配置文件
+//        projectObj.rootProject.apply from: "/Users/mei/WorkSpace/AndroidProjects/module-user/mavenConfig.gradle"
+//        println "beforeEvaluate project.configurations=${projectObj.configurations}"
+    }
+
+    @Override
+    void afterEvaluate(Project projectObj, ProjectState state) {
+        println "project name is $projectObj"
+        println "afterEvaluate project.configurations=${projectObj.configurations}"
+        if (projectObj.name != "app") {
+            return
+        }
+        // 切换 aar依赖 与 组件module 依赖
+        projectObj.configurations.all { Configuration ->
+            resolutionStrategy {
+                dependencySubstitution {
+                    substitute module("com.github.nearbyren.ensd-station:module") with project(':station-module')
+                }
+            }
+        }
+    }
+})
