@@ -12,6 +12,10 @@ import ejiayou.station.export.router.service.IStationService
  */
 @Route(path = StationRouterTable.PATH_SERVICE_STATION)
 class StationServiceImpl : IStationService {
+    override fun shareBoolean(): Boolean {
+        return false
+    }
+
     override fun init(context: Context?) {
         //初始化工作，服务注入时会调用，可忽略
     }
