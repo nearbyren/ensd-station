@@ -12,8 +12,8 @@ import ejiayou.station.export.router.service.IStationService
  */
 @Route(path = StationRouterTable.PATH_SERVICE_STATION)
 class StationServiceImpl : IStationService {
-    override fun shareBoolean(): Boolean {
-        return false
+    override fun getStation(): Int {
+        return 10086
     }
 
     override fun init(context: Context?) {

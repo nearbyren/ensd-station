@@ -12,7 +12,12 @@ plugins {
 //    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
-
+//kotlin 配置
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 android {
     compileSdk 30
 
@@ -30,12 +35,7 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        //kotlin 配置
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
+
     }
 
     buildTypes {
@@ -68,8 +68,6 @@ dependencies {
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
     //每个module必须引用 ARouter
-    api ThirdLib.Arouter.arouterApi
-    annotationProcessor ThirdLib.Arouter.arouterCompiler
     kapt ThirdLib.Arouter.arouterCompiler
     api 'com.github.nearbyren:ensd-common:1.2.3'
     api 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'

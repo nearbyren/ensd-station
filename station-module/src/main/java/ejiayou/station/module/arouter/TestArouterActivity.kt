@@ -5,18 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import ejiayou.common.ui.BaseActivityKot
+import ejiayou.common.module.mvvm.BaseBindActivity
 import ejiayou.station.export.router.StationRouterTable
 import ejiayou.station.module.R
-import kotlinx.android.synthetic.main.station_recommend_activity.*
+import ejiayou.station.module.databinding.StationTestActivityBinding
 
 /**
  * @author:
  * @created on: 2022/3/12 10:55
  * @description:
  */
-@Route(path = "/station/Recommend")
-class RecommendAct : BaseActivityKot() {
+@Route(path = StationRouterTable.PATH_STATION_UI_TEST)
+class TestArouterActivity : BaseBindActivity<StationTestActivityBinding>() {
 
     @Autowired(name = "key1")
     lateinit var key1: String
@@ -24,11 +24,11 @@ class RecommendAct : BaseActivityKot() {
     @Autowired(name = "key2")
     lateinit var key2: String
     override fun layoutRes(): Int {
-        return R.layout.station_recommend_activity
+        return R.layout.station_test_activity
     }
 
     override fun layoutView(): View? {
-      return null
+        return null
     }
 
     override fun layoutViewGroup(): ViewGroup? {
@@ -44,6 +44,6 @@ class RecommendAct : BaseActivityKot() {
     }
 
     override fun initialize(savedInstanceState: Bundle?) {
-        station_btn.text = "我是分享module key = ${key1} - ${key2}"
+        binding.stationContent.text = "我是TestModule key = ${key1} - ${key2}"
     }
 }

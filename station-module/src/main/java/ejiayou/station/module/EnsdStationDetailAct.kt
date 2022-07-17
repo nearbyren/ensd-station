@@ -42,7 +42,7 @@ import kotlin.random.Random
  * @created on: 2022/7/8 13:51
  * @description: 油站详情
  */
-
+@Route(path = StationRouterTable.PATH_STATION_UI_DETAIL)
 class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestViewModel>() {
 
 

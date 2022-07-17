@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.station_activity2.*
  * @created on: 2022/7/8 13:51
  * @description:
  */
-@Route(path = StationRouterTable.PATH_STATION_UI_DETAIL)
 class EnsdStationDetailAct2 : BaseAppBVMActivity<StationActivity2Binding, TestViewModel>() {
 
 

@@ -7,10 +7,12 @@ package ejiayou.station.export.router
  */
 object StationRouterTable {
 
-    const val PATH_STATION_UI_DETAIL = "/station/detail"
+    const val PATH_STATION_UI_DETAIL = "/station/ui/detail"
 
     const val PATH_SERVICE_STATION = "/station/service"
 
-    const val PATH_RECOMMEND = "/station/Recommend"
+
+    const val PATH_STATION_UI_TEST = "/station/ui/test"
+
 
 }
