@@ -8,11 +8,6 @@ plugins {
     id 'kotlin-kapt'
     id 'ejiayou.composing.builds'
 }
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
 android {
     compileSdk 30
 
@@ -24,10 +19,16 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        //ARouter 配置
+        //java 配置
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        //kotlin 配置
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
     }
@@ -53,9 +54,10 @@ dependencies {
     testImplementation Testing.jUnit
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
-    implementation 'com.github.nearbyren:ensd-common:1.2.2'
+    api 'com.github.nearbyren:ensd-common:1.2.3'
     //每个module必须引用 ARouter
     api ThirdLib.Arouter.arouterApi
+    annotationProcessor ThirdLib.Arouter.arouterCompiler
     kapt ThirdLib.Arouter.arouterCompiler
 
 }
