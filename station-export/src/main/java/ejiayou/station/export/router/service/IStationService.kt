@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.facade.template.IProvider
  */
 interface IStationService : IProvider {
 
-    open fun shareBoolean(): Boolean
+    fun shareBoolean(): Boolean
 
     override fun init(context: Context?)
 }
