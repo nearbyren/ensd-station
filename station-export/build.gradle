@@ -46,6 +46,11 @@ dependencies {
 
 }
 
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.getSrcDirs() // 源码路径
+    archiveClassifier = "sources"
+}
+
 afterEvaluate {
     publishing {
         repositories { RepositoryHandler handler ->
@@ -59,23 +64,28 @@ afterEvaluate {
             //     url 'http://xx.xxx.xx.xx:8081/repository/core/'
             //     // 访问仓库的 账号和密码
             //     credentials {
-            //         username = "lr"
+            //         username = "xxx"
             //         password = "123456"
             //     }
             // }
         }
-        publications { PublicationContainer publicationContainer ->
+
+        publications {
+
             // Creates a Maven publication called "release".
             release(MavenPublication) {
+
                 // Applies the component for the release build variant.
-                from components.release // 注释1:使用 Android Gradle 插件生成的组件，作为发布的内容
-//                artifact sourceJar // 上传源码
-                // Library Package Name (Example : "com.frogobox.androidfirstlib")
+                from components.release
+                artifact sourceJar // 上传源码
+                // Library Package Name (Example : "com.xxx.lib")
                 // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
                 groupId = 'ejiayou.station.export'
+
                 // Library Name / Module Name (Example : "androidfirstlib")
                 // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
                 artifactId = 'export'
+
                 // Version Library Name (Example : "1.0.0")
                 version = '1.0.0'
 
