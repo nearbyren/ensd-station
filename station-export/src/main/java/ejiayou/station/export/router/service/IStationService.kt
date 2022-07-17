@@ -1,5 +1,6 @@
 package ejiayou.station.export.router.service
 
+import android.content.Context
 import com.alibaba.android.arouter.facade.template.IProvider
 
 /**
@@ -9,5 +10,7 @@ import com.alibaba.android.arouter.facade.template.IProvider
  */
 interface IStationService : IProvider {
 
+    open fun shareBoolean(): Boolean
 
+    override fun init(context: Context?)
 }

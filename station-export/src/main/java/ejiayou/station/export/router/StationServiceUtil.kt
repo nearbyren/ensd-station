@@ -1,7 +1,6 @@
 package ejiayou.station.export.router
 
 import com.alibaba.android.arouter.launcher.ARouter
-import ejiayou.station.export.router.service.IStationService
 
 /**
  * @author: lr
@@ -15,20 +14,13 @@ open class StationServiceUtil {
 
 
         fun navigateStationDetailPage() {
-            ARouter.getInstance().build(StationRouterTable.PATH_STATION_UI_DETAIL)
-                .withString("key1", "哈哈1")
-                .withString("key2", "哈哈2").navigation()
+            ARouter.getInstance().build(StationRouterTable.PATH_RECOMMEND)
+                .navigation()
         }
 
-        fun getService(): IStationService? {
+        fun navigate0086(): Int {
+            return 10086
 
-            var service =
-                ARouter.getInstance().build(StationRouterTable.PATH_SERVICE_STATION).navigation()
-            if (service is IStationService)
-                return service
-            return null
         }
     }
-
-
 }
