@@ -9,9 +9,8 @@ import ejiayou.station.module.model.CouponDto
  * @created on: 2022/7/10 2:58 下午
  * @description:
  */
-class TestViewModel : BaseAppViewModel() {
+class StationEnsdPayModel : BaseAppViewModel() {
 
-    val couponDto = MutableLiveData<ArrayList<CouponDto>>()
 
 
 }

@@ -3,11 +3,9 @@ package ejiayou.station.module
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import ejiayou.common.module.base.BaseAppBVMActivity
-import ejiayou.station.export.router.StationRouterTable
 import ejiayou.station.module.databinding.StationActivity2Binding
 import kotlinx.android.synthetic.main.station_activity2.*
 
@@ -16,7 +14,7 @@ import kotlinx.android.synthetic.main.station_activity2.*
  * @created on: 2022/7/8 13:51
  * @description:
  */
-class EnsdStationDetailAct2 : BaseAppBVMActivity<StationActivity2Binding, TestViewModel>() {
+class EnsdStationDetailAct2 : BaseAppBVMActivity<StationActivity2Binding, StationEnsdDetailModel>() {
 
 
     override fun layoutRes(): Int {
@@ -31,8 +29,8 @@ class EnsdStationDetailAct2 : BaseAppBVMActivity<StationActivity2Binding, TestVi
         return null
     }
 
-    override fun createViewModel(): TestViewModel {
-        return TestViewModel()
+    override fun createViewModel(): StationEnsdDetailModel {
+        return StationEnsdDetailModel()
     }
 
     override fun initialize(savedInstanceState: Bundle?) {

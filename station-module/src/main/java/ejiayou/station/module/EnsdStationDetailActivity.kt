@@ -1,21 +1,26 @@
 package ejiayou.station.module
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.google.android.material.appbar.AppBarLayout
 import com.orhanobut.logger.Logger
 import ejiayou.common.module.base.BaseAppBVMActivity
 import ejiayou.common.module.exts.dpToPx
 import ejiayou.common.module.exts.hideSoftInput
 import ejiayou.common.module.exts.observeNonNull
+import ejiayou.common.module.exts.toColor
 import ejiayou.common.module.utils.ToastUtils
 import ejiayou.station.export.router.StationRouterTable
 import ejiayou.station.module.adapter.OpenEplusOnClickListener
@@ -43,7 +48,7 @@ import kotlin.random.Random
  * @description: 油站详情
  */
 @Route(path = StationRouterTable.PATH_STATION_UI_DETAIL)
-class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestViewModel>() {
+class EnsdStationDetailActivity : BaseAppBVMActivity<StationEnsdDetailBinding, StationEnsdDetailModel>() {
 
 
     override fun layoutRes(): Int {
@@ -58,8 +63,8 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
         return null
     }
 
-    override fun createViewModel(): TestViewModel {
-        return TestViewModel()
+    override fun createViewModel(): StationEnsdDetailModel {
+        return StationEnsdDetailModel()
     }
 
     override fun initialize(savedInstanceState: Bundle?) {
@@ -110,6 +115,7 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
     private fun stationInfo() {
         //油站名称
         binding.stationTvDetailName.text = "加德士北环大厦加油站"
+        binding.stationSuspendedName.text = "加德士北环大厦加油站"
         //油站地址
         binding.stationTvDetailAddress.text = "南山区南海大道G4出口附近"
         //距离时间
@@ -122,9 +128,44 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
         binding.stationIvDetailLike.setOnClickListener {
             ToastUtils.showToast(EnsdStationDetailAct@ this, "收藏..")
             ARouter.getInstance().build(StationRouterTable.PATH_STATION_UI_DETAIL)
-                .withString("key1", "哈哈1")
-                .withString("key2", "哈哈2").navigation()
+                    .withString("key1", "哈哈1")
+                    .withString("key2", "哈哈2").navigation()
         }
+
+        binding.stationCoordinatorLayout.setmMoveView(binding.stationMove1, binding.stationMove2)
+        binding.stationCoordinatorLayout.setmZoomView(binding.stationIvStretch)
+        binding.stationCenterAppbarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                appBarLayout?.let {
+                    //verticalOffset始终为0以下的负数
+
+                    if (verticalOffset < 0) {
+                        binding.stationRlSuspended1.isVisible = false
+                        binding.stationRlSuspended2.isVisible = true
+                    } else {
+                        binding.stationRlSuspended1.isVisible = true
+                        binding.stationRlSuspended2.isVisible = false
+                    }
+                    val percent = Math.abs(verticalOffset * 1.0f) / it.totalScrollRange
+                    binding.stationRlSuspended2.setBackgroundColor(changeAlpha(R.color.white.toColor(binding.stationRlSuspended1.context), percent))
+
+                }
+
+            }
+
+        })
+
+    }
+
+    /**
+     * 根据百分比改变颜色透明度
+     */
+    fun changeAlpha(color: Int, fraction: Float): Int {
+        val red = Color.red(color)
+        val green = Color.green(color)
+        val blue = Color.blue(color)
+        val alpha = (Color.alpha(color) * fraction).toInt()
+        return Color.argb(alpha, red, green, blue)
     }
 
     private fun advertiseInfo() {
@@ -262,26 +303,34 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
 
         couponDtos.add(
             CouponDto(
+                index = 0,
                 discount = "优惠 ¥3.11",
                 markPrice = "100",
                 isCheck = false,
-                isCoupon = false
+                isCoupon = false,
+                input = true
             )
         )
         couponDtos.add(
             CouponDto(
+                index = 1,
                 discount = "优惠 ¥3.12",
-                markPrice = "100",
+                markPrice = "200",
                 isCheck = false,
-                isCoupon = true
+                isCoupon = false,
+                input = true
+
             )
         )
         couponDtos.add(
             CouponDto(
+                index = 2,
                 discount = "优惠 ¥3.13",
-                markPrice = "100",
+                markPrice = "300",
                 isCheck = false,
-                isCoupon = false
+                isCoupon = true,
+                input = true
+
             )
         )
 
@@ -356,7 +405,7 @@ class EnsdStationDetailAct : BaseAppBVMActivity<StationEnsdDetailBinding, TestVi
 //        binding.stationConfirm.stationTvConfirmDiscount
         //确认订单
         binding.stationConfirm.stationBtnGo.setOnClickListener {
-
+            startActivity(Intent(EnsdStationDetailActivity@ this, PayActivity::class.java))
         }
     }
 

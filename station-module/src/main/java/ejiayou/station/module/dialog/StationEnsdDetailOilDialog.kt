@@ -23,6 +23,7 @@ class StationEnsdDetailOilDialog : BaseBindDialogFragment<StationEnsdDetailOilDi
         val pagerItems = FragmentPagerItems.with(requireActivity().applicationContext)
                 .add("92# ", StationOilNulberFragment::class.java)
                 .add("95 #", StationOilNulberFragment::class.java)
+                .add("98 #", StationOilNulberFragment::class.java)
                 .add("0 # ", StationOilNulberFragment::class.java).create()
         binding.stationPager.offscreenPageLimit = pagerItems.size
         val adapter = FragmentPagerItemAdapter(childFragmentManager, pagerItems)

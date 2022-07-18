@@ -43,6 +43,7 @@ class StationEnsdDetailEplusBuyDialog : BaseBindDialogFragment<StationEnsdDetail
         val spaceItemDecoration = SpaceItemDecoration(0, 10, 35)
         binding.stationRecyclerEplus.addItemDecoration(spaceItemDecoration)
         binding.stationRecyclerEplus.setHasFixedSize(true)
+        binding.stationTvEplusClose.setOnClickListener { dismiss() }
         stationEplusAdapter.setOnItemClickListener(listener = object : BaseRecyclerAdapter.OnItemClickListener<EPlusItemDto> {
             override fun onItemClick(holder: Any, item: EPlusItemDto, position: Int) {
                 item.text?.let { ToastUtils.showToast(requireActivity(), it) }

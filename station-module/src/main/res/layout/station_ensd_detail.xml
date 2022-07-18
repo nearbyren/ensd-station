@@ -1,278 +1,406 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#fff5f7fa"
         android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
+
+        <ejiayou.station.module.view.CustomCoordinatorLayout
+            android:id="@+id/station_coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="65dp">
+            android:visibility="visible">
 
-            <LinearLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/station_center_appbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/white">
 
 
-                <!--渐变块状-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:background="@drawable/station_ensd_station_detail_bg_top"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="16dp"
-                        android:gravity="center|left">
-
-                        <RelativeLayout
-                            android:id="@+id/station_rl_left"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:background="@drawable/station_ensd_station_detail_bg">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/ensd_return_left_white" />
-                        </RelativeLayout>
-
-
-                        <RelativeLayout
-                            android:id="@+id/station_rl_right"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:background="@drawable/station_ensd_station_detail_bg">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/station_ensd_detail_share_icon" />
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-                <!--油站整体块状-->
-                <LinearLayout
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/station_collapsing_toobar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="-70dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@drawable/station_ensd_station_detail_bg_white"
-                    android:orientation="vertical"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="12dp">
+                    android:background="#fff5f7fa"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                    <!--油站信息-->
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/station_iv_stretch"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:src="@drawable/station_ensd_station_detail_bg_top" />
+
+                    <!--渐变块状-->
+                    <LinearLayout
+                        android:id="@+id/station_move1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="70dp"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <!--内容块-->
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-70dp"
+                android:overScrollMode="never"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:layout_marginTop="70dp">
+
+                <LinearLayout
+                    android:id="@+id/station_move2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="pin"
+                    app:layout_collapseParallaxMultiplier="0.9">
+
+                    <!--油站整体块状-->
+                    <LinearLayout
+                        android:id="@+id/station_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:background="@drawable/station_ensd_station_detail_bg_white"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="12dp">
 
-                        android:layout_marginTop="20dp">
-
-                        <TextView
-                            android:id="@+id/station_tv_detail_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="#333333"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            tools:text="加德士北环大厦加油站" />
-
-                        <TextView
-                            android:id="@+id/station_tv_detail_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/station_tv_detail_name"
-                            android:layout_marginTop="4dp"
-                            android:textColor="#333333"
-                            android:textSize="12sp"
-                            tools:text="南山区南海大道G4出口附近" />
-
+                        <!--油站信息-->
                         <RelativeLayout
-                            android:layout_width="100dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentRight="true"
-                            android:background="@drawable/station_ensd_station_detail_bg_e4efff">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-                            <ImageView
-                                android:id="@+id/station_ic_detail_position"
+                            android:layout_marginTop="20dp">
+
+                            <TextView
+                                android:id="@+id/station_tv_detail_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
-                                android:layout_centerInParent="true"
-                                android:layout_marginLeft="6dp"
-                                android:src="@drawable/station_ensd_detail_address" />
+                                android:textColor="#333333"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                tools:text="加德士北环大厦加油站" />
 
                             <TextView
-                                android:id="@+id/station_tv_detail_distance"
+                                android:id="@+id/station_tv_detail_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="2dp"
+                                android:layout_below="@id/station_tv_detail_name"
                                 android:layout_marginTop="4dp"
-                                android:layout_toRightOf="@id/station_ic_detail_position"
-                                android:textColor="#337AFF"
+                                android:textColor="#333333"
                                 android:textSize="12sp"
-                                tools:text="2km · 5min" />
+                                tools:text="南山区南海大道G4出口附近" />
+
+                            <RelativeLayout
+                                android:layout_width="100dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/station_ensd_station_detail_bg_e4efff">
+
+                                <ImageView
+                                    android:id="@+id/station_ic_detail_position"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="6dp"
+                                    android:src="@drawable/station_ensd_detail_address" />
+
+                                <TextView
+                                    android:id="@+id/station_tv_detail_distance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_toRightOf="@id/station_ic_detail_position"
+                                    android:textColor="#337AFF"
+                                    android:textSize="12sp"
+                                    tools:text="2km · 5min" />
+                            </RelativeLayout>
+
                         </RelativeLayout>
 
-                    </RelativeLayout>
-
-                    <!--价格提示-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/station_tv_detail_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:textColor="#FF681C"
-                            android:textSize="22sp"
-                            tools:text="￥8.53" />
-
-                        <TextView
-                            android:id="@+id/station_tv_detail_double_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/station_tv_detail_price"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="7dp"
-                            android:layout_toRightOf="@id/station_tv_detail_price"
-                            android:textColor="#999999"
-                            android:textSize="11sp"
-                            tools:text="油站价：¥8.66 国家价：¥8.66" />
-
-                        <ImageView
-                            android:id="@+id/station_iv_detail_like"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_toLeftOf="@id/station_tv_detail_mark"
-                            android:src="@drawable/station_ensd_detail_like" />
-
-                        <TextView
-                            android:id="@+id/station_tv_detail_mark"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"
-                            android:text="常去"
-                            android:textColor="#999999"
-                            android:textSize="11sp" />
-
-
-                    </RelativeLayout>
-                    <!--广告提示-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/station_recycler_ad"
+                        <!--价格提示-->
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:overScrollMode="never" />
+                            android:layout_height="wrap_content">
 
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/station_tv_detail_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:textColor="#FF681C"
+                                android:textSize="22sp"
+                                tools:text="￥8.53" />
 
-                    <!--公告提示-->
-                    <LinearLayout
-                        android:id="@+id/station_ll_hint_click"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:id="@+id/station_ll_hint"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/station_tv_detail_double_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/station_tv_detail_price"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="7dp"
+                                android:layout_toRightOf="@id/station_tv_detail_price"
+                                android:textColor="#999999"
+                                android:textSize="11sp"
+                                tools:text="油站价：¥8.66 国家价：¥8.66" />
 
                             <ImageView
-                                android:id="@+id/station_iv_hint"
+                                android:id="@+id/station_iv_detail_like"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:src="@drawable/station_edns_detail_hint" />
+                                android:layout_toLeftOf="@id/station_tv_detail_mark"
+                                android:src="@drawable/station_ensd_detail_like" />
 
-                            <ejiayou.station.module.view.AutoPollRecyclerView
-                                android:id="@+id/station_auto_poll_recycler"
+                            <TextView
+                                android:id="@+id/station_tv_detail_mark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:text="常去"
+                                android:textColor="#999999"
+                                android:textSize="11sp" />
+
+
+                        </RelativeLayout>
+                        <!--广告提示-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/station_recycler_ad"
                                 android:layout_width="match_parent"
-                                android:layout_height="26dp"
-                                tools:ignore="SpeakableTextPresentCheck" />
+                                android:layout_height="wrap_content"
+                                android:overScrollMode="never" />
+
+                        </RelativeLayout>
+
+                        <!--公告提示-->
+                        <LinearLayout
+                            android:id="@+id/station_ll_hint_click"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/station_ll_hint"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/station_iv_hint"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/station_edns_detail_hint" />
+
+                                <ejiayou.station.module.view.AutoPollRecyclerView
+                                    android:id="@+id/station_auto_poll_recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="26dp"
+                                    tools:ignore="SpeakableTextPresentCheck" />
+
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/station_iv_down"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/station_ensd_detail_down" />
 
                         </LinearLayout>
 
 
-                        <ImageView
-                            android:id="@+id/station_iv_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/station_ensd_detail_down" />
-
                     </LinearLayout>
 
+                    <!--油枪 油号 标价 100 200 300 选择 块状-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <!--油枪 油号 标价 100 200 300 选择 块状-->
+                        <include
+                            android:id="@+id/station_oil_number"
+                            layout="@layout/station_ensd_detail_oil_number" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:visibility="visible">
+
+                            <!--ePlus块状-->
+                            <include
+                                android:id="@+id/station_eplus"
+                                layout="@layout/station_ensd_detail_eplus" />
+
+                            <!--键盘块状-->
+                            <ejiayou.station.module.view.StationKeyboardView
+                                android:id="@+id/station_key_board"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:visibility="gone"
+                                tools:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <!--油枪 油号 标价 100 200 300 选择 块状-->
-                <include
-                    android:id="@+id/station_oil_number"
-                    layout="@layout/station_ensd_detail_oil_number" />
+            </androidx.core.widget.NestedScrollView>
 
-                <FrameLayout
+            <!--标题栏渐变块-->
+            <RelativeLayout
+                android:id="@+id/station_rl_suspended2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center|left"
+
+                tools:background="@color/white"
+                tools:visibility="visible">
+
+                <View
+                    android:id="@+id/station_rll_top"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:visibility="visible">
+                    android:layout_height="20dp" />
 
-                    <!--ePlus块状-->
-                    <include
-                        android:id="@+id/station_eplus"
-                        layout="@layout/station_ensd_detail_eplus" />
+                <RelativeLayout
+                    android:id="@+id/station_rl_left2"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_below="@id/station_rll_top"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
 
-                    <!--键盘块状-->
-                    <ejiayou.station.module.view.StationKeyboardView
-                        android:id="@+id/station_key_board"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:visibility="gone"
-                        tools:visibility="gone" />
-                </FrameLayout>
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ensd_return_left_back" />
+                </RelativeLayout>
 
-            </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/station_rll_top"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/station_rl_left2">
 
-        </androidx.core.widget.NestedScrollView>
+
+                    <TextView
+                        android:id="@+id/station_suspended_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="#333333"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="加德士北环大厦加油站" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/station_rl_right2"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_below="@id/station_rll_top"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/station_ensd_detail_share_back_icon" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <!--标题栏初始化-->
+            <RelativeLayout
+                android:id="@+id/station_rl_suspended1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center|left"
+                android:paddingTop="20dp"
+                tools:visibility="gone">
+
+                <RelativeLayout
+                    android:id="@+id/station_rl_left"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/station_ensd_station_detail_bg">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ensd_return_left_white" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/station_rl_right"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/station_ensd_station_detail_bg">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/station_ensd_detail_share_white_icon" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </ejiayou.station.module.view.CustomCoordinatorLayout>
+
 
         <!--确认订单块状-->
         <include
