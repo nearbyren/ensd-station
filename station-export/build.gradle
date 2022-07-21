@@ -43,6 +43,7 @@ dependencies {
     androidTestImplementation Testing.androidJunit
     androidTestImplementation Testing.espresso
     implementation ThirdLib.Arouter.arouterApi
+    api 'com.github.nearbyren:ensd-common:1.2.4'
 
 }
 

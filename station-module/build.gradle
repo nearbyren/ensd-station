@@ -67,9 +67,7 @@ dependencies {
     androidTestImplementation Testing.espresso
     //每个module必须引用 ARouter
     kapt ThirdLib.Arouter.arouterCompiler
-    api 'com.github.nearbyren:ensd-common:1.2.3'
-    api 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
-    api 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+    api 'com.github.nearbyren:ensd-common:1.2.4'
     implementation project(path: ':station-export')
 
 
