@@ -1,8 +1,6 @@
 package ejiayou.station.module
 
-import androidx.lifecycle.MutableLiveData
 import ejiayou.common.module.base.BaseAppViewModel
-import ejiayou.common.module.dto.BannerBean
 
 /**
  * @author: lr
@@ -10,7 +8,6 @@ import ejiayou.common.module.dto.BannerBean
  * @description:
  */
 class AFragmentMessageViewModel : BaseAppViewModel() {
-    val articleList = MutableLiveData<BannerBean>()
     private val repo by lazy { MessageRepoImpl() }
 
     /**

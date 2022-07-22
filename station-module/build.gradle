@@ -1,5 +1,6 @@
 import ejiayou.composing.builds.Testing
 import ejiayou.composing.builds.ThirdLib
+import ejiayou.composing.builds.AndroidX
 
 plugins {
     id 'com.android.library'
@@ -35,7 +36,17 @@ android {
         }
 
     }
-
+    sourceSets {
+        main {
+            if (isModuleType == "lib") {
+                println("isModuleType - lib")
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                println("isModuleType - app")
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -49,12 +60,12 @@ android {
     resourcePrefix "station_"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = '1.8'
     }
 
     buildFeatures {
@@ -67,7 +78,7 @@ dependencies {
     androidTestImplementation Testing.espresso
     //每个module必须引用 ARouter
     kapt ThirdLib.Arouter.arouterCompiler
-    api 'com.github.nearbyren:ensd-common:1.2.4'
+    api 'com.github.nearbyren:ensd-common:v1.2.7'
     implementation project(path: ':station-export')
 
 

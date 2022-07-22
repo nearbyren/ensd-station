@@ -3,8 +3,8 @@ package ejiayou.station.module
 import com.google.gson.reflect.TypeToken
 import ejiayou.common.module.api.response.InfoResponse
 import ejiayou.common.module.api.response.ResponseHolder
-import ejiayou.common.module.dto.BannerBean
-import ejiayou.common.module.dto.MyBannerBean
+import ejiayou.common.module.dto.TestBannerBean
+import ejiayou.common.module.dto.TestMyBannerBean
 import ejiayou.common.module.http.CorHttp
 
 /**
@@ -19,7 +19,7 @@ class MessageRepoImpl : MessageRepo {
         page_size: Int
 
 
-    ): ResponseHolder<MyBannerBean<BannerBean>> {
+    ): ResponseHolder<TestMyBannerBean<TestBannerBean>> {
         return CorHttp.getInstance().getClient()
                 .postJson(
                     url = URL_ARTICLE_LIST,
@@ -43,7 +43,7 @@ class MessageRepoImpl : MessageRepo {
                         "oilId" to "1"
 
                     ),
-                    type = object : TypeToken<InfoResponse<MyBannerBean<BannerBean>>>() {}.type,
+                    type = object : TypeToken<InfoResponse<TestMyBannerBean<TestBannerBean>>>() {}.type,
                 )
 
     }
