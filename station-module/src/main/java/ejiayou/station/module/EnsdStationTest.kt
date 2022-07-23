@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.station_activity2.*
  * @created on: 2022/7/8 13:51
  * @description:
  */
-class EnsdStationDetailAct2 : BaseAppBVMActivity<StationActivity2Binding, StationEnsdDetailModel>() {
+class EnsdStationTest : BaseAppBVMActivity<StationActivity2Binding, StationEnsdDetailModel>() {
 
 
     override fun layoutRes(): Int {

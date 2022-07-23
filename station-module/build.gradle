@@ -78,7 +78,7 @@ dependencies {
     androidTestImplementation Testing.espresso
     //每个module必须引用 ARouter
     kapt ThirdLib.Arouter.arouterCompiler
-    api 'com.github.nearbyren:ensd-common:v1.2.7'
+    api 'com.github.nearbyren:ensd-common:v1.2.8'
     implementation project(path: ':station-export')
 
 

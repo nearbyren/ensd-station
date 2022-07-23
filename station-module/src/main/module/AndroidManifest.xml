@@ -18,13 +18,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".PayActivity"
-            android:exported="true">
 
-        </activity>
         <activity
-            android:name=".EnsdStationDetailAct2"
+            android:name=".EnsdStationTest"
             android:exported="true">
 
         </activity>

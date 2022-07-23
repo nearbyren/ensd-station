@@ -43,6 +43,7 @@ class StationOilNulberFragment : BaseAppBVMFragment<StationOilFragmentBinding, S
         for (i in 1..30) {
             array.add(OilItemDto("$i"))
         }
+        viewModel.getArticleList()
         stationOilAdapter.setItems(array)
         binding.stationRecyclerOilFragment.adapter = stationOilAdapter
         binding.stationRecyclerOilFragment.layoutManager = GridLayoutManager(requireContext(), 4)

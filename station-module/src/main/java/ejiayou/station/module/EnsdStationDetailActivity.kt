@@ -21,6 +21,7 @@ import ejiayou.common.module.exts.dpToPx
 import ejiayou.common.module.exts.hideSoftInput
 import ejiayou.common.module.exts.observeNonNull
 import ejiayou.common.module.exts.toColor
+import ejiayou.common.module.ui.BarHelperConfig
 import ejiayou.common.module.utils.ToastUtils
 import ejiayou.station.export.router.StationRouterTable
 import ejiayou.station.module.adapter.OpenEplusOnClickListener
@@ -61,6 +62,10 @@ class EnsdStationDetailActivity : BaseAppBVMActivity<StationEnsdDetailBinding, S
 
     override fun layoutView(): View? {
         return null
+    }
+
+    override fun initBarHelperConfig(): BarHelperConfig? {
+        return BarHelperConfig.builder().setTitle("测试", Gravity.LEFT).build()
     }
 
     override fun createViewModel(): StationEnsdDetailModel {
@@ -405,7 +410,6 @@ class EnsdStationDetailActivity : BaseAppBVMActivity<StationEnsdDetailBinding, S
 //        binding.stationConfirm.stationTvConfirmDiscount
         //确认订单
         binding.stationConfirm.stationBtnGo.setOnClickListener {
-            startActivity(Intent(EnsdStationDetailActivity@ this, PayActivity::class.java))
         }
     }
 

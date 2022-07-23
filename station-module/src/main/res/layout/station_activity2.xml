@@ -8,7 +8,7 @@
         android:background="@color/ensd_content_bg"
         android:orientation="vertical">
 
-        <include layout="@layout/ensd_toolbar_title" />
+        <include layout="@layout/common_toolbar_title" />
 
         <RelativeLayout
             android:layout_width="match_parent"
